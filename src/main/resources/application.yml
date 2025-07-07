@@ -1,0 +1,5 @@
+spring:
+  application.name: TradingInfo
+
+app:
+  message-broker: stomp
