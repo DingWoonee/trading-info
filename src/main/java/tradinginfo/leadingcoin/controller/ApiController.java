@@ -16,8 +16,17 @@ public class ApiController {
 
     @GetMapping("/api/coins")
     public BaseResponse<List<ExchangeWithCoinsResponse>> getCoins() {
-        List<ExchangeWithCoinsResponse> data = exchangeService.getExchanges().stream()
+        List<ExchangeWithCoinsResponse> data = exchangeService.getExchangesAndCoins().stream()
                 .map(ExchangeWithCoinsResponse::from)
+                .toList();
+
+        return new BaseResponse<>(true, null, data);
+    }
+
+    @GetMapping("/api/exchanges")
+    public BaseResponse<List<String>> getExchanges() {
+        List<String> data = exchangeService.getExchanges().stream()
+                .map(Enum::name)
                 .toList();
 
         return new BaseResponse<>(true, null, data);

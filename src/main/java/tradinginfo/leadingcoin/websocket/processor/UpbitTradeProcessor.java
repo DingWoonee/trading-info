@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import tradinginfo.leadingcoin.model.Exchange;
 import tradinginfo.leadingcoin.model.Trade;
 import tradinginfo.leadingcoin.repository.TradeRepository;
-import tradinginfo.leadingcoin.utils.JsonUtils;
+import tradinginfo.leadingcoin.global.utils.JsonUtils;
 import tradinginfo.leadingcoin.websocket.dto.UpbitTrade;
 
 @RequiredArgsConstructor

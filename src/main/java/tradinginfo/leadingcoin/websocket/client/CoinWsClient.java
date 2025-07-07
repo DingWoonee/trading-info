@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import tradinginfo.leadingcoin.model.Coin;
 import tradinginfo.leadingcoin.model.Exchange;
 import tradinginfo.leadingcoin.repository.ExchangeRegistry;
-import tradinginfo.leadingcoin.utils.JsonUtils;
+import tradinginfo.leadingcoin.global.utils.JsonUtils;
 import tradinginfo.leadingcoin.websocket.builder.PayloadBuilder;
 import tradinginfo.leadingcoin.websocket.processor.TradeProcessor;
 

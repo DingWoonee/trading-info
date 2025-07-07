@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
-import tradinginfo.leadingcoin.utils.JsonUtils;
+import tradinginfo.leadingcoin.global.utils.JsonUtils;
 
 @Slf4j
 @Component

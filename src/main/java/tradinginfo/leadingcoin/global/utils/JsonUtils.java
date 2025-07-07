@@ -1,4 +1,4 @@
-package tradinginfo.leadingcoin.utils;
+package tradinginfo.leadingcoin.global.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

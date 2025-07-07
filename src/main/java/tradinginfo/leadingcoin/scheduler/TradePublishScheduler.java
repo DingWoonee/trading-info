@@ -11,7 +11,7 @@ public class TradePublishScheduler {
 
     private final TradePublishService tradePublishService;
 
-    @Scheduled(fixedRate = 3000)
+    @Scheduled(fixedRate = 500)
     public void schedule() {
         tradePublishService.publish();
     }

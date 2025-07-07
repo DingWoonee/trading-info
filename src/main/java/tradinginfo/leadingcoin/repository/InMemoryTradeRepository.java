@@ -2,15 +2,18 @@ package tradinginfo.leadingcoin.repository;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.DoubleAdder;
-import java.util.concurrent.atomic.LongAdder;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
+import tradinginfo.leadingcoin.global.aspect.LogExecutionTime;
 import tradinginfo.leadingcoin.model.CoinKey;
+import tradinginfo.leadingcoin.model.Exchange;
 import tradinginfo.leadingcoin.model.Trade;
 import tradinginfo.leadingcoin.repository.dto.TradeAmountDto;
 
@@ -42,6 +45,33 @@ public class InMemoryTradeRepository implements TradeRepository {
                         now.toEpochMilli()))
                 .toList();
 
+    }
+
+    @Override
+    @LogExecutionTime
+    public Map<Exchange, List<TradeAmountDto>> getTop10TradeAmounts() {
+        Instant now = Instant.now();
+        // 5분 윈도우 유지
+        tradeAmountSumData.keySet().forEach(key -> evictOld(key, now));
+
+        return tradeAmountSumData.keySet().stream()
+                // DTO 생성
+                .map(key -> new TradeAmountDto(
+                        key.exchange(),
+                        key.market(),
+                        getVolumeSum(key).longValue(),
+                        now.toEpochMilli()))
+                // 거래소별 그룹핑 후 volume 내림차순 정렬, 상위 10개 추출
+                .collect(Collectors.groupingBy(
+                        TradeAmountDto::exchange,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> list.stream()
+                                        .sorted(Comparator.comparingDouble(TradeAmountDto::tradeAmount).reversed())
+                                        .limit(10)
+                                        .toList()
+                        )
+                ));
     }
 
     private void addTrade(Trade trade) {

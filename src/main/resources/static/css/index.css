@@ -1,112 +1,72 @@
-/* 기본 초기화 */
-*,
-*::before,
-*::after { box-sizing: border-box }
-html, body {
-  margin:0; padding:0;
-  width:100%; height:100%;
-  overflow:hidden;
+:root {
+  --primary: #007bff;
+  --light-bg: #f5f5f5;
+  --white: #ffffff;
+  --gray-light: #eee;
 }
-
-/* 전체 레이아웃 */
-.container {
-  display:flex;
-  width:100vw; height:100vh;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: var(--light-bg);
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
-.chart {
-  flex:1; padding:1rem; position:relative;
+header {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: var(--white);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-.chart canvas {
-  width:100%!important; height:100%!important;
+h1 {
+  font-size: 2rem;
+  color: var(--primary);
 }
-.exchanges {
-  flex:0 0 30%;
-  display:flex; flex-direction:column;
-  padding:1rem;
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-light);
 }
-
-/* 탭 */
-.tab-list {
-  display:flex;
-  margin:0; padding:0;
-  list-style:none;
-  border-bottom:1px solid #ccc;
-}
-.tab-list li {
-  flex:1;
-  text-align:center;
-  padding:.75rem;
-  cursor:pointer;
-  background:#f0f0f0;
-}
-.tab-list li.active {
-  background:#2a4d8f;
-  color:#fff;
-}
-
-/* 패널 */
-.tab-panels {
-  flex:1; overflow-y:auto; padding-top:1rem;
-}
-.tab-panel {
-  display:none;
-}
-.tab-panel.active {
-  display:block;
-}
-
-/* 코인 리스트 */
-.coin-list {
-  list-style:none; margin:0; padding:0;
-}
-.coin-list li {
-  margin-bottom:.5rem;
-}
-.coin-list label {
-  display:flex;
-  align-items:center;
-  padding:.5rem;
-  border-radius:4px;
-  transition:background-color .2s, color .2s;
+.tab {
+  padding: 0.5rem 1rem;
+  background: var(--white);
+  border: 1px solid var(--gray-light);
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
   cursor: pointer;
+  transition: background 0.3s;
 }
-.coin-list label:hover {
-  background-color: #c5c5c5;
+.tab.active {
+  background: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
 }
-/* 커스텀 체크박스 */
-.coin-list input[type="checkbox"] {
-  -webkit-appearance:none;
-  appearance:none;
+#table-container {
+  flex: 1;
+  max-width: 800px;
+  margin: 1rem auto;
+  background: var(--white);
+  border-radius: 0 5px 5px 5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  overflow: hidden;
   display: none;
-  border:1px solid #ccc;
-  border-radius:4px;
-  margin-right:.5rem;
-  background:#fff;
-  cursor:pointer;
 }
-/* 선택된 라벨 */
-.coin-list label.selected {
-  background:#2a4d8f;
-  color:#fff;
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
-.coin-list label.selected:hover {
-  background: #102e67;
-  color:#fff;
+thead th {
+  background: var(--light-bg);
+  font-weight: 600;
+  padding: 0.75rem;
+  text-align: center;
 }
-/* 경고 아이콘 */
-.coin-warning {
-  margin-left:.25rem;
-  color:red;
-}
-
-/* 반응형 (좁은 화면) */
-@media (max-width:768px) {
-  .container { flex-direction:column; height:100vh }
-  .chart {
-    flex:none; height:50vh;
-  }
-  .exchanges {
-    flex:none; height:calc(100vh - 50vh);
-  }
-  .tab-panels { overflow-y:auto }
+tbody td {
+  padding: 0.75rem;
+  text-align: center;
+  border-bottom: 1px solid var(--gray-light);
 }
